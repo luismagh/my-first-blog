@@ -1,0 +1,53 @@
+
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{%block head_title %} Try Django 1.9 {%endblock head_title %}</title>
+
+    <!-- Bootstrap latest compiled a minified css del v26 implementar bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+
+
+    <link rel="stylesheet" href='{%static "css/base.css" %}'/> <!v25 añadiendo static and css files, cambia durante el video,
+    ver explicaciones >
+</head>
+<body>
+<!-- V34 este codigo de abajo es para los comentarios de facebook -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v3.0';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<!-- aquí termina el código de los comentarios de facebook -->
+
+
+<! esto de abajo lo he traido en el video 24 de post_detail.html, era la
+class message que luego sale de aqui también y se va al nuevo archivo message_display.html
+y lo sustituyo por una orden "include">
+
+{% include "messages_display.html" %}
+
+<! hasta aqui es lo que me he traido, definiendo una nueva div con l clase messages >
+
+
+<div class="container"> <! esto y el block content es del video 24, aunque todo lo de
+    abajo se ha pasado a un nuevo archivo post_list... mirar los apuntes>
+
+    {%block content %}
+
+  {%endblock content %}
+
+    </div>
+ <!-- Bootstrap javascript latest compiled a minified del v26 implementar bootstrap-->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+</body>
+</html>
+

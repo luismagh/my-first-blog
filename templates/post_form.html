@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base.html" %}
+
+{% block content %}
+{{ block.super }}
+
+<div class='col-sm-6 col-sm-offset-2'>
+
+<h1>Form</h1>
+
+
+
+<form method='POST' action="" enctype="multipart/form-data"> {% csrf_token %} <!--la parte de enctype es para v28-->
+    <!el método POST es el que escribe datos. Action es para indicar una web a la que va o dejarlo por defecto>
+    <! csrf_token lo ofrece django para que se den los protocolos de seguridad al captar datos de formulario>
+{{ form.as_p }} <!indica que el formulario se muestra como parrafo "as_p">
+<input type="submit" class="btn btn-primary" value="Create Post" /> <!-- class añadida en v26 -->
+</form></div>
+
+{% endblock content %}
+</body>
+
+
+</html>

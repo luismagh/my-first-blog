@@ -1,0 +1,68 @@
+<! para el v24 se crea>
+
+{% extends "base.html" %}
+{%block content %}
+
+<div class='col-sm-6 col-sm-offset-2'>
+
+
+
+<h1>{{ title }} </h1> <!-- en v26 quito ya el "is working" que estaba dentro-->
+
+<form method="GET" action=""> <!-- v27 opción de buscador de post (todo lo que está dentro de <form> -->
+  <input type="text" name='q' placeholder="Search Posts" value='{{ request.GET.q }}'/> <!-- v27 value muestra el valor
+  en la ventana de lo que se acaba de mostrar cuando enseña los resultados de dicha búsqueda -->
+    <input type="submit" value="Search" />
+    <p>
+
+</form>
+{% for obj in object_list %}
+<div class="row"> <!-- modificado a tope desde el v26 segunda parte usando bootstrap-->
+
+  <div class="col-sm-12">
+    <div class="thumbnail">
+      <!-- <img src="..." alt="...">  No tenemos imagen de momento-->
+          {% if obj.image %}
+           <img src="{{ obj.image.url }}" class="img-fluid" alt="Responsive image"> <!--v28 mostrar imagen -->
+            {% endif %}
+      <div class="caption">
+          {% if obj.draft %}<h3> Staff only: Draft </h3> {% endif %} {% if obj.publish > today %} <h3>Staff Only: Future Post </h3>{% endif %}
+          <!-- arriba es v36 para diferenciar los drafts  en la lista y también las publicaciones con fecha pub futura -->
+          <h3><a href="{{ obj.get_absolute_url }}"> {{ obj.title }}</a><small><h5>{{ obj.publish}} ago</h5></small></h3>
+            <!-- arriba cambio en v35 instance.timestamp| timesince por instance.publish, fecha de publicacion -->
+          {% if obj.user.get_full_name %}<p>Author: {{ obj.user.get_full_name }}</p>{% endif %} <!--v33 meter nombre usuario -->
+            <p>{{ obj.content | linebreaks | truncatechars:120  }} </p>
+        <p><a href="{{ obj.get_absolute_url }}" class="btn btn-primary" role="button">Button</a>
+      </div>
+    </div>
+  </div>
+
+<!-- a mitad de video 26 también dejo de usarlo:
+ {% cycle "" "<div class='col-sm-12'><hr/></div> </div><div class='row'>" %} <!-- esto es necesario para despues de cada ciclo
+ajustar de nuevo a la clase row y que todo salgo bien ordenado y añado linea divisoria-->
+</div>
+
+{% endfor %}
+
+
+    <div class="pagination">
+    <span class="step-links">
+        {% if object_list.has_previous %}
+        <!-- v27 a final en los href cambio el ?page por page_request_var que será un context
+         v37 incluyo &q={{ request.GET.q }} cuando quiero que funcionen en modo búsqueda también-->
+            <a href="?{{ page_request_var }}={{ object_list.previous_page_number }}{% if request.GET.q %}
+            &q={{ request.GET.q }}{% endif %}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+        </span>
+
+        {% if object_list.has_next %}
+            <a href="?{{ page_request_var }}={{ object_list.next_page_number }}{% if request.GET.q %}
+            &q={{ request.GET.q }}{% endif %}"">next</a>
+        {% endif %}
+    </span>
+</div>
+</div>
+{%endblock content  %}

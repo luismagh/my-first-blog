@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<! había un if aqui abajo que quito en el v24 me lo llevo al base.html usando inheritance, allí puede verse >
+
+{% block content %}
+
+<h1>{{ title }} </h1>
+
+
+
+{{ instance.title }} <br/>
+{{ instance.content }} <br/>
+{{ instance.timestamp }} <br/>
+{{ instance.updated }} <br/>
+{{ instance.id }} <br/>
+
+{% endblock content %}
+
+</body>
+</html>

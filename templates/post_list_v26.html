@@ -1,0 +1,22 @@
+<! para el v24 se crea>
+
+{% extends "base.html" %}
+{%block content %}
+
+<h1>{{ title }} </h1> <!-- en v26 quito ya el "is working" que estaba dentro-->
+{% for obj in object_list %}
+
+<div class="col-sm-6"> <!-- div y class del v26 -->
+
+<a href="{{ obj.get_absolute_url }}"> {{ obj.title }}</a><br/>
+
+
+{{ obj.content | linebreaks | truncatechars:120  }} <br/> <!-- v26 añado linbreaks y truncate en -->
+{{ obj.timestamp }} <br/>
+{{ obj.updated }} <br/>
+{{ obj.id }} <br/>
+
+    </div>
+{% endfor %}
+
+{%endblock content %}

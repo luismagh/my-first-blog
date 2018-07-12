@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load urlify %}
+
+{%block head_title %} {{ instance.title }} | {{block.super }} {%endblock head_title %}
+
+
+
+{% block content %}
+
+<p class='col-sm-6 col-sm-offset-2'> <!-- añado en v26 bootstrap -->
+    {% if instance.image %} <!--v28 mostrar imagen.. si la hay para no dar error -->
+   <img src="{{ instance.image.url }}" class="img-fluid" alt="Responsive image"> <!--v28 mostrar imagen -->
+    {% endif %}
+
+    <h1>{{ title }} <small>{% if instance.draft %} <!-- v35 insercción de borrador -->
+    <span style="color:red;">Draft</span> {% endif %}<h5>{{ instance.publish }}</h5></small></h1>
+    <!-- arriba cambio en v35 instance.timestamp por instance.publish, fecha de publicacion
+    y meto el if para saber si está clickado el "draft" (entonces cambio color) o no-->
+    <p>Author: {{ instance.user }}</p> <!--v33 Foreign Key para unir al autor -->
+
+    <!-- v34 boton me gusta y compartir de facebook  -->
+    <p><div class="fb-like" data-href="{{ request.build_absolute_url }}"
+            data-layout="button_count" data-action="like" data-size="small"
+            data-show-faces="false" data-share="true"></div> <br/> </p>
+
+<!-- ojo, en v34 quitamos todos los links de abajo del v30 y v32 -->
+
+    <!-- v34 lo quito <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_url }}">
+Facebook -->
+</a> <!--v30 boton de compartir en facebook -->
+    <!-- v34 lo quito <a href="https://twitter.com/home?status= {{ instance.content|truncatechars:20|urlify }}%20{{ request.build_absolute_url }}">
+Twitter
+</a> <!--v30 boton de compartir en twitter , en v32 cambio en "status2 de share_string a  instance.content|urlify -->
+
+<!-- v34 lo quito <a href='https://plus.google.com/share?url=http://codingforentrepreneurs.com'>Google+
+</a>  <!--v30 boton de compartir en google +-->
+
+ <!-- v34 lo quito   <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_url }}
+    &title={{ instance.title }}&summary={{ share_string }}%20&source={{ request.build_absolute_url }}.com/">
+Linkedin
+</a> <!--v30 boton de compartir en linkedin -->
+ <!-- v34 lo quito   <a href="http://www.reddit.com/submit?url={{ request.build_absolute_url }}/&title={{ share_string }}">Reddit
+    </a>  <!--v30 boton de compartir en reddit -->
+
+<hr/>
+
+{{ instance.content | linebreaks}}
+
+<hr/>
+
+    <!-- v34 comentarios en los post con facebook -->
+    <div class="fb-comments" data-href="{{ request.build_absolute_url }}" data-numposts="5"></div>
+
+
+
+
+</div>
+
+{% endblock content %}
